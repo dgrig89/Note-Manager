@@ -1,0 +1,13 @@
+.item {
+  display: flex;
+  align-items: center;
+  font-size: 1.8rem;
+  margin-left: 0.8rem;
+}
+.item img {
+  cursor: pointer;
+}
+
+.nested {
+  padding-left: 2.4rem;
+}

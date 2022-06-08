@@ -1,0 +1,17 @@
+.sidebar {
+  display: grid;
+  grid-template-columns: 2fr 4fr;
+  margin-top: 3.5rem;
+  padding-top: 2.4rem;
+}
+
+.sidebar-directories {
+  display: flex;
+  justify-content: space-between;
+  border-left: 2px solid #aaa;
+  border-right: 2px solid #aaa;
+  height: 80vh;
+}
+.sidebar-directories ul {
+  list-style: none;
+}
