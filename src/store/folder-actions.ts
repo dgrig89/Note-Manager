@@ -12,7 +12,7 @@ export const fetchFolderData = () => async (dispatch: AppDispatch) => {
   };
 
   try {
-    await fetchData();
+    fetchData();
   } catch (error) {
     console.log(error);
   }
@@ -23,24 +23,16 @@ export const sendFolderData =
     const sendRequest = async () => {
       const response = await fetch("http://localhost:3000/directories", {
         method: "POST",
-        body: JSON.stringify({
-          id: folder.id,
-          parentId: folder.parentId,
-          name: folder.name,
-          children: folder.children,
-          hasChild: folder.hasChild,
-        }),
+        body: JSON.stringify(folder),
         headers: { "Content-Type": "aplication/json" },
       });
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.message || "Something went wrong!");
       }
-
-      return null;
     };
     try {
-      sendRequest();
+      await sendRequest();
     } catch (e) {
       console.log(e);
     }
