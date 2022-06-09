@@ -9,10 +9,8 @@ function App() {
   const folderData = useAppSelector((state) => state.folderItem);
   console.log(folderData);
   useEffect(() => {
-    setTimeout(() => {
-      dispatch(getFetchFolder);
-      console.log("run");
-    });
+    dispatch(getFetchFolder);
+    console.log("run");
   }, [dispatch]);
 
   useEffect(() => {}, []);
