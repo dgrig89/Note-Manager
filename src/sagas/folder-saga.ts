@@ -1,14 +1,19 @@
 import { call, put, StrictEffect, takeEvery } from "redux-saga/effects";
 import { fetchFolderData } from "../store/folder-actions";
-import { addFolder, getFetchFolder } from "../store/folder-slice";
+import folderActions from "../store/folder-slice";
 import { FoldersType } from "../types/FolderItemsType";
 
 function* fetchFolderWorker() {
-  const data: FoldersType = yield call(() =>
-    fetch("http://localhost:3000/directories")
-  );
-  const folder = yield data.json();
-  yield put(getFetchFolder(folder));
+  try {
+    const data: FoldersType = yield call(() =>
+      fetch("http://localhost:3000/directories")
+    );
+    const folder = yield data.json();
+    
+    yield put(getFetchFolder(folder));
+  } catch () {
+    //ALert with message
+  }
 }
 
 // function* addFolderWorker() {
@@ -21,4 +26,10 @@ function* folderSaga(): Generator<StrictEffect> {
   yield takeEvery("folderItem/getFetchFolder", fetchFolderWorker);
   yield takeEvery("folderItem/addFolder", addFolderWorker);
 }
+
+/*
+function* folderSaga(): Generator<StrictEffect> {
+  yield takeEvery(folderAction.addFolderAsync, fetchFolderWorker);
+}
+*/
 export default folderSaga;
