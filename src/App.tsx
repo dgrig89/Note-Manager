@@ -6,6 +6,17 @@ import { getFetchFolder } from "./store/folder-slice";
 
 function App() {
   const dispatch = useAppDispatch();
+  
+  useEffect(() => {
+    axios.get(`${API_URL}directories`).then((response) => {
+      dispatch(folderActions.fetchFolders(response.data));
+    });
+
+    axios.get(`${API_URL}notices`).then((response) => {
+      dispatch(notesActions.fetchNotes(response.data));
+    })
+  }, [dispatch]);
+  
   const folderData = useAppSelector((state) => state.folderItem);
   console.log(folderData);
   useEffect(() => {
