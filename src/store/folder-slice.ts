@@ -13,6 +13,7 @@ const folderSlice = createSlice({
     getFetchFolder(state: FoldersType, action: PayloadAction<FoldersType>) {
       state = action.payload;
     },
+    addFolderAsync(state: FoldersType, action: PayloadAction<FoldersType>){},
     addFolder(state: FoldersType, action: PayloadAction<FoldersType>) {
       const newFolder = action.payload;
       return { ...state, ...newFolder };
