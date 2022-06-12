@@ -1,25 +1,40 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FoldersType } from "../types/FolderItemsType";
+import { IFolder } from "../types/FolderItemsType";
 
-const initialState: FoldersType = {
-  parentId: 1,
-  name: "",
+const initialState: IFolder = {
+  folder: [
+    {
+      id: 1,
+      parentId: 1,
+      name: "",
+    },
+  ],
 };
 
 const folderSlice = createSlice({
   name: "folderItem",
   initialState,
   reducers: {
-    getFetchFolder(state: FoldersType, action: PayloadAction<FoldersType>) {
-      state = action.payload;
+    getFolderData(state: IFolder, action: PayloadAction<IFolder>) {
+      state.folder = action.payload;
     },
-    addFolder(state: FoldersType, action: PayloadAction<FoldersType>) {
-      const newFolder = action.payload;
-      return { ...state, ...newFolder };
+
+    addFolderAsync() {},
+    addFolder(state: IFolder, action: PayloadAction<IFolder>) {
+      const existFolderIndex = state.folder.findIndex(
+        (i) => i.id !== action.payload.id
+      );
+      const existFolder = state.folder[existFolderIndex];
+      console.log(existFolderIndex);
+      state.folder.push({
+        id: state.folder.id,
+        parentId: existFolder.id,
+        name: action.payload.name,
+      });
     },
   },
 });
 
-export const { getFetchFolder, addFolder } = folderSlice.actions;
+export const folderActions = folderSlice.actions;
 
 export default folderSlice;

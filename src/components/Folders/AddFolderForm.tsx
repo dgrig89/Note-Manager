@@ -1,21 +1,22 @@
 import React, { useRef } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { addFolder } from "../../store/folder-slice";
+import { folderActions } from "../../store/folder-slice";
 import Card from "../UI/Card";
 import classes from "./AddFolderForm.module.css";
 
 const AddFolderForm: React.FC = (props) => {
   const addFolderRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const { parentId } = useAppSelector((state) => state.folderItem);
+  const { parentId, id } = useAppSelector((state) => state.folderItem.folder);
 
   const submitHandler = (event: React.FormEvent) => {
     event!.preventDefault();
     const enteredFolderName = addFolderRef.current!.value;
     dispatch(
-      addFolder({
-        name: enteredFolderName,
+      folderActions.addFolder({
+        id,
         parentId,
+        name: enteredFolderName,
       })
     );
   };

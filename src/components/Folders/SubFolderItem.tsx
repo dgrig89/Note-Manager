@@ -1,13 +1,23 @@
 import React from "react";
+import { IFoldersItem } from "../../types/FolderItemsType";
+
 import classes from "./SubFoldersItem.module.css";
 
-const SubFolderItem: React.FC = (props) => {
+export type SubfolderType = {
+  level: number;
+  selected: boolean;
+  item: IFoldersItem;
+  onToggle: () => void;
+};
+
+const SubFolderItem: React.FC<SubfolderType> = (props) => {
   const openedFolderImg = (
     <img
       src="./img/opened-folder.ico"
       width={74}
       height={74}
       alt="Opened folder"
+      onClick={props.onToggle}
     />
   );
   const containedFolderImg = (
@@ -16,23 +26,30 @@ const SubFolderItem: React.FC = (props) => {
       width={74}
       height={74}
       alt="Contained folder"
+      onClick={props.onToggle}
     />
   );
   const closedFolderImg = (
     <img
-      src="./img/closed-folder.ico"
+      src="./img/contained-folder.ico"
       width={74}
       height={74}
       alt="Contained folder"
+      onClick={props.onToggle}
     />
   );
 
   return (
-    <div className={classes.item}>
-      {closedFolderImg}
-      {openedFolderImg}
-      {containedFolderImg}
-      <span></span>
+    <div
+      style={{ paddingLeft: `${props.level * 2.4}rem` }}
+      className={props.item.id !== 1 ? classes.item : classes.hide}
+    >
+      {!props.selected && props.item.parentId !== undefined && closedFolderImg}
+      {props.item.parentId && openedFolderImg}
+      {props.selected &&
+        props.item.parentId !== undefined &&
+        containedFolderImg}
+      <span>{props.item.name}</span>
     </div>
   );
 };

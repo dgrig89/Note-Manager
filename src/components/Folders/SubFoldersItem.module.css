@@ -8,6 +8,6 @@
   cursor: pointer;
 }
 
-.nested {
-  padding-left: 2.4rem;
+.hide {
+  display: none;
 }

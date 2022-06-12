@@ -1,10 +1,40 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { folderActions } from "../../store/folder-slice";
 import FoldersItem from "./FoldersItem";
 
+const API_URL = "http://localhost:3000";
+
 const Folders: React.FC = (props) => {
+  const dispatch = useAppDispatch();
+  const folderData = useAppSelector((state) => state.folderItem.folder);
+  useEffect(() => {
+    const fetchFolder = async () => {
+      await axios
+        .get(`${API_URL}/directories`)
+        .then((res) => {
+          dispatch(folderActions.getFolderData(res.data));
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
+    try {
+      setTimeout(() => {
+        fetchFolder();
+      }, 500);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [dispatch]);
+
+  console.log(folderData);
   return (
     <ul>
-      <FoldersItem />
+      {folderData.map((item) => (
+        <FoldersItem key={item.id} item={item} level={0} />
+      ))}
     </ul>
   );
 };
