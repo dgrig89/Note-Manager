@@ -1,12 +1,12 @@
 import React from "react";
-import { IFoldersItem } from "../../types/FolderItemsType";
+import { Item } from "./FoldersItem";
 
 import classes from "./SubFoldersItem.module.css";
 
 export type SubfolderType = {
   level: number;
   selected: boolean;
-  item: IFoldersItem;
+  item: Item;
   onToggle: () => void;
 };
 

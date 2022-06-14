@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { IFoldersItem } from "../../types/FolderItemsType";
 import SubFolderItem from "./SubFolderItem";
 export type Item = {
   selected: boolean;
@@ -7,7 +6,7 @@ export type Item = {
   name: string;
   parentId: number;
   level: number;
-  item: Item;
+  item: Item[];
 };
 export type child = {
   id: number;
@@ -15,7 +14,7 @@ export type child = {
   name: string;
 };
 
-const FoldersItem: React.FC<IFoldersItem> = ({ item, level }) => {
+const FoldersItem: React.FC<Item> = ({ item, level }) => {
   const [selected, setSelected] = useState<boolean>(item.selected ?? false);
   const hasSubfolder = item.parentId && item.parentId !== undefined;
   const renderDirectories = () => {

@@ -1,6 +1,8 @@
-import { all, fork } from "redux-saga/effects";
-import { addFolderSaga } from "./folder-saga";
-function* folderSaga() {
-  yield all([fork(addFolderSaga)]);
+import { StrictEffect, takeEvery } from "redux-saga/effects";
+import { folderActions } from "../store/folder-slice";
+import { createFolder } from "./folder-saga";
+
+function* folderSaga(): Generator<StrictEffect> {
+  yield takeEvery(folderActions.addFolderAsync, createFolder);
 }
 export default folderSaga;

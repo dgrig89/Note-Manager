@@ -1,24 +1,18 @@
-import React, { useRef } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import React, { useState } from "react";
+import { useAppDispatch } from "../../hooks/redux";
 import { folderActions } from "../../store/folder-slice";
+import { IFolder } from "../../types/FolderItemsType";
 import Card from "../UI/Card";
 import classes from "./AddFolderForm.module.css";
 
-const AddFolderForm: React.FC = (props) => {
-  const addFolderRef = useRef<HTMLInputElement>(null);
+const AddFolderForm: React.FC<IFolder> = (props) => {
+  const [name, setName] = useState<string>("");
   const dispatch = useAppDispatch();
-  const { parentId, id } = useAppSelector((state) => state.folderItem.folder);
 
   const submitHandler = (event: React.FormEvent) => {
     event!.preventDefault();
-    const enteredFolderName = addFolderRef.current!.value;
-    dispatch(
-      folderActions.addFolder({
-        id,
-        parentId,
-        name: enteredFolderName,
-      })
-    );
+
+    dispatch(folderActions.addFolder(name));
   };
 
   return (
@@ -26,7 +20,12 @@ const AddFolderForm: React.FC = (props) => {
       <form onSubmit={submitHandler} className={classes.form}>
         <div className={classes.control}>
           <label htmlFor="folder">Add folder</label>
-          <input type="text" id="folder" ref={addFolderRef} />
+          <input
+            type="text"
+            id="folder"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
         <div className="btn-group">
           <button className="btn">Add Folder</button>
