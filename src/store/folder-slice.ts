@@ -7,10 +7,21 @@ const initialState = {
   name: "",
 };
 
+const initialState2 = {
+  folders: [],
+  notes: [],
+  parentFolderId: 1,
+  selectedFolder: null,
+  seletedNote: null,
+};
+
 const folderSlice = createSlice({
   name: "folderItem",
   initialState,
   reducers: {
+    setFolders(state: IFolder[], action: PayloadAction<IFolder>): void {
+      state = action.payload;
+    },
     getFolderData(state: IFolder, action: PayloadAction<IFolder>): void {
       state = action.payload;
     },
